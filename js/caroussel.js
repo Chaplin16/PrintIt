@@ -4,6 +4,9 @@ const bannerImg = document.querySelector(".banner-img");
 const banner = document.querySelector("#banner");
 const newBanner = document.createElement("img");
 let dots = document.querySelector(".dots");
+let textBanner= document.querySelector(".textBanner");
+
+
 
 let nextSlide;
 let prevSlide;
@@ -27,6 +30,7 @@ if(bannerImg == null){
     newBanner.classList.add("banner-img");
     banner.appendChild(newBanner);  
     document.querySelector(".dot").classList.add("dot_selected");
+    textBanner.innerHTML = slides[0].tagLine;
 } 
 
 arrowRight.addEventListener('click', function(){
@@ -34,6 +38,8 @@ arrowRight.addEventListener('click', function(){
     index = index + 1;
     if(index <= slides.length && index >= 0){
     const img = slides[index].image;
+    const text = slides[index].tagLine;
+    textBanner.innerHTML = `${text}`;
     newBanner.src=`../assets/images/slideshow/${img}`;
     newBanner.classList.add("banner-img");
     banner.appendChild(newBanner);
@@ -53,6 +59,8 @@ arrowLeft.addEventListener('click', function(){
   index = index - 1;
   if(index <= slides.length || index >= 0){
     const img = slides[index].image;
+    const text = slides[index].tagLine;
+    textBanner.innerHTML = `${text}`;
     newBanner.src=`../assets/images/slideshow/${img}`;
     newBanner.classList.add("banner-img");
     banner.appendChild(newBanner);
