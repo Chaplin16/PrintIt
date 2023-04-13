@@ -4,67 +4,64 @@ const bannerImg = document.querySelector(".banner-img");
 const banner = document.querySelector("#banner");
 const newBanner = document.createElement("img");
 let dots = document.querySelector(".dots");
-const dot1 = document.querySelector(".dot1");
-const dot2 = document.querySelector(".dot2");
-const dot3 = document.querySelector(".dot3");
-const dot4 = document.querySelector(".dot4");
 
 let nextSlide;
 let prevSlide;
-dots = [dot1,dot2,dot3,dot4];
+let index = 0;
+let dot = document.createElement("span");
+let dot1 = document.createElement("span");
+let dot2 = document.createElement("span");
+let dot3 = document.createElement("span");
+dot.classList.add("dot");
+dot1.classList.add("dot");
+dot2.classList.add("dot");
+dot3.classList.add("dot");
+dots.appendChild(dot);
+dots.appendChild(dot1);
+dots.appendChild(dot2);
+dots.appendChild(dot3);
+
 
 if(bannerImg == null){
     newBanner.src=`./assets/images/slideshow/slide1.jpg`;
     newBanner.classList.add("banner-img");
-    banner.appendChild(newBanner);
-    dot1.classList.add("dot_selected");
-}
+    banner.appendChild(newBanner);  
+    document.querySelector(".dot").classList.add("dot_selected");
+} 
 
-//ecouteurs d'évènements
-arrowRight.addEventListener("click", function(){
-    for (let i=0; i<slides.length; i++){
-        nextSlide = slides[i+1].image
-        newBanner.src=`../assets/images/slideshow/${nextSlide}`;
-        newBanner.classList.add("banner-img");
-        banner.appendChild(newBanner);
-        break;
+arrowRight.addEventListener('click', function(){
+    document.querySelector(".dot").classList.remove("dot_selected");
+    index = index + 1;
+    if(index <= slides.length && index >= 0){
+    const img = slides[index].image;
+    newBanner.src=`../assets/images/slideshow/${img}`;
+    newBanner.classList.add("banner-img");
+    banner.appendChild(newBanner);
+        if (index <= 4 || index >=0){ 
+          let dotsChildren=  dots.childNodes;
+          dotsChildren[index + 1].classList.add("dot_selected");
+          dotsChildren[index ].classList.remove("dot_selected");
+        }
     }
-    for(let i=0; i<dots.length; i++){
-       let dot =  dots[i+1];
-       dot.classList.toggle("dot_selected");
-       break
-    }
+   else {
+    index = 0;   
+  }  
+
 });
 
-arrowLeft.addEventListener("click", function(){
-    alert("c'est bon à gauche");
-    for (let i=0; i<slides.length; i++){
-        
-    }
+arrowLeft.addEventListener('click', function(){
+  index = index - 1;
+  if(index <= slides.length || index >= 0){
+    const img = slides[index].image;
+    newBanner.src=`../assets/images/slideshow/${img}`;
+    newBanner.classList.add("banner-img");
+    banner.appendChild(newBanner);
+    if (index <= 4 || index >=0){ 
+        let dotsChildren=  dots.childNodes;
+        dotsChildren[index + 1].classList.add("dot_selected");
+        dotsChildren[index + 2].classList.remove("dot_selected");
+      }
+  } else {
+    index = 0;  
+  }  
 });
-
-dot1.addEventListener("click", function(){
-    dot1.classList.add("dot_selected");
-    newBanner.src=`../assets/images/slideshow/slide1.jpg`;
-    banner.appendChild(newBanner);
-})
-
-dot2.addEventListener("click", function(){
-    dot2.classList.add("dot_selected");
-    newBanner.src=`../assets/images/slideshow/slide2.jpg`;
-    banner.appendChild(newBanner);
-})
-
-dot3.addEventListener("click", function(){
-    dot3.classList.add("dot_selected");
-    newBanner.src=`../assets/images/slideshow/slide3.jpg`;
-    banner.appendChild(newBanner);
-})
-
-dot4.addEventListener("click", function(){
-    dot4.classList.add("dot_selected");
-    newBanner.src=`../assets/images/slideshow/slide4.png`;
-    banner.appendChild(newBanner);
-})
-
-
